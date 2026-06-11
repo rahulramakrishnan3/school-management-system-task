@@ -1,0 +1,46 @@
+<main class="login-page">
+  <section class="login-card" aria-labelledby="login-title">
+    <div class="brand-mark" aria-hidden="true">SM</div>
+    <p class="eyebrow">School management</p>
+    <h1 id="login-title">Welcome back</h1>
+    <p class="intro">Sign in to continue to your role-specific workspace.</p>
+
+    @if (errorMessage(); as message) {
+      <div class="error-alert" role="alert">
+        <strong>Unable to sign in</strong>
+        <span>{{ message }}</span>
+      </div>
+    }
+
+    @if (isLoading()) {
+      <div class="skeleton" aria-label="Signing in" aria-live="polite">
+        <span class="skeleton-line short"></span>
+        <span class="skeleton-field"></span>
+        <span class="skeleton-line short"></span>
+        <span class="skeleton-field"></span>
+        <span class="skeleton-button"></span>
+      </div>
+    } @else {
+      <form [formGroup]="loginForm" (ngSubmit)="submit()" novalidate>
+        <label for="email">Email address</label>
+        <input id="email" type="email" formControlName="email" autocomplete="email" />
+        @if (loginForm.controls.email.touched && loginForm.controls.email.hasError('required')) {
+          <p class="field-error">Email address is required.</p>
+        } @else if (loginForm.controls.email.touched && loginForm.controls.email.hasError('email')) {
+          <p class="field-error">Enter a valid email address.</p>
+        }
+
+        <label for="password">Password</label>
+        <input id="password" type="password" formControlName="password" autocomplete="current-password" />
+        @if (loginForm.controls.password.touched && loginForm.controls.password.hasError('required')) {
+          <p class="field-error">Password is required.</p>
+        } @else if (loginForm.controls.password.touched && loginForm.controls.password.hasError('minlength')) {
+          <p class="field-error">Password must be at least 8 characters.</p>
+        }
+
+        <button type="submit">Sign in</button>
+      </form>
+    }
+
+  </section>
+</main>

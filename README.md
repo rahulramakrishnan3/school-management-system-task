@@ -2,6 +2,70 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.10.
 
+## Implementation Progress
+
+### Step 1: Mock Data & Asset Seeding
+
+**Status:** Complete
+
+Create a typed, immutable in-memory user store containing exactly four users: two
+admins and two standard users. User roles will be constrained to a union type,
+and passwords will be stored only as pre-calculated SHA-256 hashes so no
+plain-text credentials exist in the application data.
+
+Implemented in `src/app/data/mock-users.ts` and verified by focused tests covering
+the exact role distribution and SHA-256 hash format.
+
+### Step 2: Reactive Signal-Based Auth Service
+
+**Status:** Complete
+
+Create a root-provided authentication service as the only identity state owner.
+It will expose read-only `currentUser`, `role`, and `isAuthenticated` signals,
+compare credentials after hashing submitted passwords with Web Crypto, and return
+login results through an observable delayed by 600ms. Successful sessions will
+use a base64-encoded mock JWT stored in `sessionStorage`; startup hydration will
+validate its payload before restoring state, and logout will clear state and
+navigate to `/login`.
+
+Implemented in `src/app/auth/auth.service.ts`.
+
+### Step 3: Functional Route Guards
+
+**Status:** Complete
+
+Add functional `CanActivateFn` guards using `inject()` and URL-tree redirects.
+The authentication guard will preserve the attempted URL in a `returnUrl` query
+parameter, while the admin guard will allow only the `admin` role. Routes will
+lazy-load standalone pages and send authenticated users to their role-specific
+landing page.
+
+Implemented with functional guards in `src/app/auth/auth.guard.ts` and lazy
+standalone routes in `src/app/app.routes.ts`.
+
+### Step 4: OnPush Login Page & Form UX
+
+**Status:** Complete
+
+Build a standalone OnPush login page around a non-nullable reactive form. Email
+and password controls will provide inline error messages after interaction.
+Signal-backed loading and error states will swap the form for a structural
+skeleton during authentication and show an accessible descriptive alert for bad
+credentials. The login subscription will be scoped with `takeUntilDestroyed`.
+
+Implemented in `src/app/pages/login/`.
+
+### Step 5: Role-Aware Layout Component
+
+**Status:** Complete
+
+Create a standalone OnPush application shell around protected child routes. The
+shell will read the AuthService's read-only identity signals directly to render
+the current user, role-aware navigation, and admin-only actions. Logout will
+delegate entirely to AuthService, preserving it as the single source of truth.
+
+Implemented in `src/app/layout/` with protected child routes.
+
 ## Development server
 
 To start a local development server, run:

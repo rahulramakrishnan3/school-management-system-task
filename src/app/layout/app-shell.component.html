@@ -1,0 +1,33 @@
+<header>
+  <a class="brand" [routerLink]="authService.role() === 'admin' ? '/admin' : '/shop'">
+    <span>SM</span>
+    School Portal
+  </a>
+
+  <nav aria-label="Main navigation">
+    @if (authService.role() === 'admin') {
+      <a routerLink="/admin" routerLinkActive="active">Administration</a>
+    }
+    <a routerLink="/shop" routerLinkActive="active">School shop</a>
+  </nav>
+
+  <div class="account">
+    @if (authService.currentUser(); as user) {
+      <div>
+        <strong>{{ user.name }}</strong>
+        <span>{{ authService.role() }}</span>
+      </div>
+    }
+    <button type="button" (click)="authService.logout()">Sign out</button>
+  </div>
+</header>
+
+<main>
+  @if (authService.role() === 'admin') {
+    <aside class="admin-banner">
+      <span>Admin tools are enabled</span>
+      <button type="button">Create announcement</button>
+    </aside>
+  }
+  <router-outlet />
+</main>

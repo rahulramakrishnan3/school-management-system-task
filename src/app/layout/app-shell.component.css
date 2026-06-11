@@ -1,0 +1,123 @@
+:host {
+  display: block;
+  min-height: 100dvh;
+  background: #f8fafc;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  min-height: 4.5rem;
+  padding: 0.75rem clamp(1rem, 5vw, 4rem);
+  border-bottom: 1px solid #e2e8f0;
+  background: white;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: #0f172a;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.brand span {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.65rem;
+  background: #4338ca;
+  color: white;
+  font-size: 0.8rem;
+}
+
+nav {
+  display: flex;
+  gap: 0.4rem;
+  margin-right: auto;
+}
+
+nav a {
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.55rem;
+  color: #64748b;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+nav a.active {
+  background: #eef2ff;
+  color: #4338ca;
+}
+
+.account {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.account div {
+  display: grid;
+  text-align: right;
+}
+
+.account span {
+  color: #64748b;
+  font-size: 0.75rem;
+  text-transform: capitalize;
+}
+
+button {
+  padding: 0.65rem 0.85rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.6rem;
+  background: white;
+  color: #334155;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+main {
+  width: min(72rem, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.admin-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #c7d2fe;
+  border-radius: 0.8rem;
+  background: #eef2ff;
+  color: #3730a3;
+  font-weight: 700;
+}
+
+@media (max-width: 700px) {
+  header {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  nav {
+    order: 3;
+    width: 100%;
+  }
+
+  .account {
+    margin-left: auto;
+  }
+
+  .account div {
+    display: none;
+  }
+}
