@@ -1,6 +1,9 @@
-# SchoolManagementSystem
+# ProductManagementSystem
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.10.
+
+The application provides role-based product management, including protected
+product routes, mock identities, session persistence, and administrative tools.
 
 ## Implementation Progress
 

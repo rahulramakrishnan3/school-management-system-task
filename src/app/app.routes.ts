@@ -18,8 +18,9 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/admin/admin.page').then((module) => module.AdminPage),
       },
       {
-        path: 'shop',
-        loadComponent: () => import('./pages/shop/shop.page').then((module) => module.ShopPage),
+        path: 'products',
+        loadComponent: () =>
+          import('./pages/products/products.page').then((module) => module.ProductsPage),
       },
     ],
   },

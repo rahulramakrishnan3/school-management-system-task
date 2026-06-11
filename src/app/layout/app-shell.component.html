@@ -1,14 +1,14 @@
 <header>
-  <a class="brand" [routerLink]="authService.role() === 'admin' ? '/admin' : '/shop'">
+  <a class="brand" [routerLink]="authService.role() === 'admin' ? '/admin' : '/products'">
     <span>SM</span>
-    School Portal
+    Product Portal
   </a>
 
   <nav aria-label="Main navigation">
     @if (authService.role() === 'admin') {
       <a routerLink="/admin" routerLinkActive="active">Administration</a>
     }
-    <a routerLink="/shop" routerLinkActive="active">School shop</a>
+    <a routerLink="/products" routerLinkActive="active">Products</a>
   </nav>
 
   <div class="account">

@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "school-management-system": {
+    "product-management-system": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -56,10 +56,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "school-management-system:build:production"
+              "buildTarget": "product-management-system:build:production"
             },
             "development": {
-              "buildTarget": "school-management-system:build:development"
+              "buildTarget": "product-management-system:build:development"
             }
           },
           "defaultConfiguration": "development"

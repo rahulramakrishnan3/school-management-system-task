@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { defer, Observable, switchMap, timer } from 'rxjs';
 import { MOCK_USERS, UserRole } from '../data/mock-users';
 
-const SESSION_TOKEN_KEY = 'school-management-token';
+const SESSION_TOKEN_KEY = 'product-management-token';
 const NETWORK_DELAY_MS = 600;
 
 export interface AuthUser {

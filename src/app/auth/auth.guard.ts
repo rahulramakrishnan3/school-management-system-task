@@ -19,5 +19,5 @@ export const adminGuard: CanActivateFn = () => {
     return router.createUrlTree(['/login'], { queryParams: { returnUrl: '/admin' } });
   }
 
-  return authService.role() === 'admin' ? true : router.createUrlTree(['/shop']);
+  return authService.role() === 'admin' ? true : router.createUrlTree(['/products']);
 };
