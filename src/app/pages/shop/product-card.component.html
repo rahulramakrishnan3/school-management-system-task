@@ -1,0 +1,17 @@
+<article>
+  <div class="visual" [attr.data-category]="product().category">
+    <span>{{ product().category.slice(0, 2).toUpperCase() }}</span>
+    <small>{{ product().category }}</small>
+  </div>
+  <div class="content">
+    <div class="stock" [class.low]="product().stock < 6" [class.out]="product().stock === 0">
+      {{ product().stock === 0 ? 'Out of stock' : product().stock + ' in stock' }}
+    </div>
+    <h3><a [routerLink]="['/shop/products', product().id]">{{ product().name }}</a></h3>
+    <p>Reliable equipment selected for modern learning environments.</p>
+    <footer>
+      <strong>{{ product().price.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) }}</strong>
+      <button type="button" [disabled]="product().stock === 0" (click)="addToCart.emit(product())">Add</button>
+    </footer>
+  </div>
+</article>

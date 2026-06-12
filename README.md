@@ -132,6 +132,58 @@ which will keep the parent table synchronized without navigation or reload.
 
 Implemented by the orders detail drawer and globally provided `OrderStore`.
 
+### Step 12: Product Catalogue Grid & Filters (3A)
+
+**Status:** In Progress
+
+Create a lazy-loaded `/shop` catalogue backed by the existing root-provided
+`ProductStore`, preserving one product and live-stock source across admin and
+storefront views. Signal-backed category chips, price, stock, and page filters
+will be mirrored into URL query parameters. Product cards will render through
+`@defer` with skeleton placeholders and expose retry and empty states.
+
+### Step 13: Product Detail Route Resolver (3B)
+
+**Status:** In Progress
+
+Add a functional resolver that loads a product from the shared store before the
+detail route activates. The detail page will provide stock-bounded quantity,
+cart actions, out-of-stock notification UI, and related-category products.
+
+### Step 14: Persistent Signal-Based Cart Service (3C)
+
+**Status:** In Progress
+
+Create a root-provided signal cart service that hydrates and persists line items
+through `localStorage`. Computed item count and totals will drive the storefront
+header and checkout without duplicated cart state.
+
+### Step 15: Checkout Architecture & Dynamic Form Renderer (3C)
+
+**Status:** In Progress
+
+Create lazy checkout child routes guarded by a linear functional guard. Cart
+review will use a pure totals pipe; delivery details will be generated from an
+asset-backed field configuration through a reusable, context-free dynamic form
+renderer accepting only a form group and configuration.
+
+### Step 16: Custom ControlValueAccessor & Order Submission (3C)
+
+**Status:** In Progress
+
+Create a standalone card-number ControlValueAccessor with live Luhn validation,
+plus configuration-driven billing fields. Submission will optimistically clear
+the cart and navigate to confirmation, restoring the cart and exposing an error
+if the simulated endpoint rejects.
+
+### Step 17: Performance Monitoring & Quality Metrics
+
+**Status:** In Progress
+
+Observe LCP and CLS from catalogue initialization with cleanup through
+`DestroyRef`. Document five measurable architectural performance choices in
+`PERFORMANCE.md`.
+
 ## Development server
 
 To start a local development server, run:

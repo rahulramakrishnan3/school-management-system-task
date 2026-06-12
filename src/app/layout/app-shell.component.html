@@ -1,5 +1,5 @@
 <header>
-  <a class="brand" [routerLink]="authService.role() === 'admin' ? '/admin/products' : '/products'">
+  <a class="brand" [routerLink]="authService.role() === 'admin' ? '/admin/products' : '/shop'">
     <span>SM</span>
     Product Portal
   </a>
@@ -8,7 +8,10 @@
     @if (authService.role() === 'admin') {
       <a routerLink="/admin/products" routerLinkActive="active">Administration</a>
     }
-    <a routerLink="/products" routerLinkActive="active">Products</a>
+    <a routerLink="/shop" routerLinkActive="active">Shop</a>
+    <a class="cart-link" routerLink="/shop/checkout/step/1" routerLinkActive="active">
+      Cart <span>{{ cart.itemCount() }}</span>
+    </a>
   </nav>
 
   <div class="account">

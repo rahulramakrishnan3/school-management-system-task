@@ -10,6 +10,13 @@ export interface Product {
   readonly stock: number;
 }
 
+export interface StorefrontQuery {
+  readonly categories: readonly string[];
+  readonly maxPrice: number;
+  readonly inStockOnly: boolean;
+  readonly page: number;
+}
+
 export interface ProductQuery {
   readonly search: string;
   readonly category: string;
@@ -49,6 +56,7 @@ export class ProductStore {
     );
   });
   readonly error = signal<string | null>(null);
+  readonly maxPrice = computed(() => Math.max(...this.productsState().map((item) => item.price)));
 
   constructor() {
     interval(1800)
@@ -75,6 +83,24 @@ export class ProductStore {
 
   queryProducts(query: ProductQuery): Observable<ProductQuery> {
     return of(query).pipe(delay(120), tap((value) => this.queryState.set(value)));
+  }
+
+  fetchStorefront(query: StorefrontQuery): Observable<readonly Product[]> {
+    return of(query).pipe(
+      delay(180),
+      map((value) =>
+        this.productsState().filter(
+          (product) =>
+            (value.categories.length === 0 || value.categories.includes(product.category)) &&
+            product.price <= value.maxPrice &&
+            (!value.inStockOnly || product.stock > 0),
+        ),
+      ),
+    );
+  }
+
+  getById(id: string): Observable<Product | null> {
+    return of(this.productsState().find((product) => product.id === id) ?? null).pipe(delay(120));
   }
 
   setVisibleIds(ids: readonly string[]): void {

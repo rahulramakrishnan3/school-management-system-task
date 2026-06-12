@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
+import { CartService } from '../pages/shop/cart.service';
 
 @Component({
   selector: 'app-shell',
@@ -12,4 +13,5 @@ import { AuthService } from '../auth/auth.service';
 export class AppShellComponent {
   // OnPush lets AuthService signals target identity-driven UI updates without broad checks.
   protected readonly authService = inject(AuthService);
+  protected readonly cart = inject(CartService);
 }
