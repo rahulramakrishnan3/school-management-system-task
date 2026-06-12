@@ -18,10 +18,10 @@ export const routes: Routes = [
         loadChildren: () => import('./pages/admin/admin.routes').then((module) => module.ADMIN_ROUTES),
       },
       {
-        path: 'products',
-        loadComponent: () =>
-          import('./pages/products/products.page').then((module) => module.ProductsPage),
+        path: 'shop',
+        loadChildren: () => import('./pages/shop/shop.routes').then((module) => module.SHOP_ROUTES),
       },
+      { path: 'products', pathMatch: 'full', redirectTo: 'shop' },
     ],
   },
   { path: '', pathMatch: 'full', redirectTo: 'login' },

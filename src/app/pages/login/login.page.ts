@@ -64,7 +64,7 @@ export class LoginPage {
         takeUntilDestroyed(this.destroyRef),
       )
       .subscribe({
-        next: (user) => void this.router.navigate([user.role === 'admin' ? '/admin' : '/products']),
+        next: (user) => void this.router.navigate([user.role === 'admin' ? '/admin' : '/shop']),
         error: (error: Error) => this.errorMessage.set(error.message),
       });
   }

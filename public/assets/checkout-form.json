@@ -1,0 +1,35 @@
+[
+  {
+    "key": "fullName",
+    "label": "Full name",
+    "type": "text",
+    "placeholder": "Jordan Lee",
+    "validations": [{ "type": "required" }, { "type": "minLength", "value": 3 }]
+  },
+  {
+    "key": "email",
+    "label": "Email address",
+    "type": "email",
+    "placeholder": "jordan@school.edu",
+    "validations": [{ "type": "required" }, { "type": "email" }]
+  },
+  {
+    "key": "address",
+    "label": "Street address",
+    "type": "text",
+    "placeholder": "100 Learning Lane",
+    "validations": [{ "type": "required" }]
+  },
+  {
+    "key": "city",
+    "label": "City",
+    "type": "text",
+    "validations": [{ "type": "required" }]
+  },
+  {
+    "key": "postalCode",
+    "label": "Postal code",
+    "type": "text",
+    "validations": [{ "type": "required" }, { "type": "minLength", "value": 5 }]
+  }
+]

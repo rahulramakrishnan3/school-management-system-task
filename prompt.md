@@ -102,3 +102,47 @@ You must maintain a step-by-step progress ledger inside a `README.md` file at th
 - Render a comprehensive line-item component breakdown within this panel.
 - Embed an inline select dropdown menu to change order statuses. Modifying this status must instantly sync the parent table via the shared state layer without inducing a clumsy whole-page reload.
 - Write this step to `README.md`.
+
+### Step 12: Product Catalogue Grid & Filters (3A)
+
+- Fetch paginated products from the shared `ProductService`. Display them as a responsive card grid using modern `@defer` blocks with a meaningful placeholder skeleton.
+- Implement multi-select chips for category filtering, a price range slider, and an in-stock toggle switch.
+- Compose all filters into a single query parameters object and mirror them to the URL to enable deep-linking.
+- Implement an error retry mechanism and graceful empty states.
+- Connect the `ProductCardComponent` to the **exact same** reactive WebSocket stock stream created in Step 9.
+- Log approach to `README.md`.
+
+### Step 13: Product Detail Route Resolver (3B)
+
+- Implement a route resolver to preload product data before completing navigation to `/shop/products/:id`. No loading skeleton on the detail page itself.
+- Build a comprehensive detail UI showing metadata, a quantity selector bounded strictly by available stock, and an "Add to Cart" button.
+- If out of stock, disable the "Add to Cart" button and replace it with a structural "Notify me" layout/placeholder.
+- Add a related products section displaying up to 4 items from the same category.
+- Log approach to `README.md`.
+
+### Step 14: Persistent Signal-Based Cart Service (3C)
+
+- Create a global, signal-based `CartService`. Persist cart state inside `localStorage` to survive page rehydrations.
+- Expose a computed signal for the live item count to bind directly to the navigation header cart icon.
+- Log approach to `README.md`.
+
+### Step 15: Checkout Architecture & Dynamic Form Renderer (3C)
+
+- Build a 3-step lazy-loaded checkout flow located at `/shop/checkout/step/:n`.
+- Implement a linear route guard that blocks deep-linking to step 2 or 3 unless previous step conditions are validated.
+- **Step 1 (Cart Review)**: Render cart line-items with quantity modifications and removals. Compute subtotal, configurable tax rates, and grand total using a **pure pipe**. Redirect to `/shop` if empty.
+- **Step 2 (Delivery Details)**: Render form controls dynamically from `/assets/checkout-form.json` containing types, validations, and optional conditional `visibleWhen` predicates. **Reuse the exact same structural dynamic form renderer built in Task 2** as an abstract component accepting `[formGroup]` and `[config]` as inputs with zero situational knowledge.
+- Log approach to `README.md`.
+
+### Step 16: Custom ControlValueAccessor & Order Submission (3C)
+
+- **Step 3 (Payment)**: Build a custom input component implementing `ControlValueAccessor` for the card number field. Embed real-time validation executing the **Luhn Algorithm**. Integrate it seamlessly into the parent reactive form group.
+- Implement a billing address toggle ("same as delivery") that leverages the generic configuration framework to show/hide relevant sub-fields dynamically.
+- **Submission**: On submit, POST the payload to the mock endpoint. Reflect an optimistic success animation/state instantly, clearing the cart and routing to `/shop/order-confirmation/:id`. Implement a rollback handler if the endpoint rejects.
+- Log approach to `README.md`.
+
+### Step 17: Performance Monitoring & Quality Metrics
+
+- Instantiate a `PerformanceObserver` within the catalogue component initialization lifecycle to systematically track and log **Largest Contentful Paint (LCP)** and **Cumulative Layout Shift (CLS)** values directly to the console.
+- Generate a `PERFORMANCE.md` file explicitly detailing 5 performance optimization architectural steps taken (e.g., OnPush, Pure Pipes, `@defer`, RxJS debounce optimizations, Web Workers/Optimistic UI) with analytical data points.
+- Log approach to `README.md`.

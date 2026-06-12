@@ -1,0 +1,11 @@
+<div class="dynamic-form" [formGroup]="formGroup()">
+  @for (field of config(); track field.key) {
+    @if (visible(field)) {
+      <label>
+        {{ field.label }}
+        <input [type]="field.type" [formControlName]="field.key" [placeholder]="field.placeholder ?? ''" />
+        @if (invalid(field)) { <small>Enter a valid {{ field.label.toLowerCase() }}.</small> }
+      </label>
+    }
+  }
+</div>

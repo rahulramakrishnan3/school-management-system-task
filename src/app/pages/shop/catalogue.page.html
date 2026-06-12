@@ -1,0 +1,18 @@
+<section class="hero"><div><p class="eyebrow">School supply storefront</p><h1>Equip every learning moment</h1><p>Live inventory, dependable tools, and simple ordering for your school.</p></div><strong>{{ cart.itemCount() }} items in cart</strong></section>
+<section class="catalogue">
+  <aside>
+    <h2>Filters</h2>
+    <fieldset><legend>Categories</legend><div class="chips">@for (category of store.categories().slice(1); track category) { <button type="button" [class.active]="selectedCategories().includes(category)" (click)="toggleCategory(category)">{{ category }}</button> }</div></fieldset>
+    <label>Maximum price: <strong>{{ priceLimit().toLocaleString('en-US', { style: 'currency', currency: 'USD' }) }}</strong><input type="range" min="30" [max]="store.maxPrice()" [value]="priceLimit()" (input)="setPrice($any($event.target).value)" /></label>
+    <button class="toggle" type="button" [class.active]="inStockOnly()" (click)="toggleStock()"><span></span> In-stock only</button>
+  </aside>
+  <div>
+    @if (error(); as message) { <div class="state"><h2>Catalogue unavailable</h2><p>{{ message }}</p><button type="button" (click)="load()">Retry</button></div> }
+    @else if (loading()) { <div class="grid">@for (item of [1,2,3,4,5,6]; track item) { <div class="skeleton"></div> }</div> }
+    @else if (visibleProducts().length === 0) { <div class="state"><h2>No matching products</h2><p>Adjust the filters to see more of the catalogue.</p></div> }
+    @else {
+      <div class="grid">@for (product of visibleProducts(); track product.id) { @defer (on viewport) { <app-product-card [product]="product" (addToCart)="cart.add($event)" /> } @placeholder { <div class="skeleton"></div> } }</div>
+      <footer><span>Page {{ page() }} of {{ pageCount() }}</span><div><button type="button" [disabled]="page() === 1" (click)="setPage(page() - 1)">Previous</button><button type="button" [disabled]="page() === pageCount()" (click)="setPage(page() + 1)">Next</button></div></footer>
+    }
+  </div>
+</section>

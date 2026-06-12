@@ -1,0 +1,13 @@
+<section class="checkout">
+  <header><p class="eyebrow">Secure checkout</p><h1>Step {{ step() }} of 3</h1><nav><span [class.active]="step() === 1">Cart</span><span [class.active]="step() === 2">Delivery</span><span [class.active]="step() === 3">Payment</span></nav></header>
+  @if (step() === 1) {
+    <div class="panel"><h2>Review your cart</h2>@for (item of cart.items(); track item.product.id) { <article class="line"><div><strong>{{ item.product.name }}</strong><span>{{ item.product.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) }} each</span></div><input type="number" min="1" [max]="item.product.stock" [value]="item.quantity" (change)="update(item, $any($event.target).value)" /><strong>{{ (item.product.price * item.quantity).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) }}</strong><button type="button" (click)="cart.remove(item.product.id)">Remove</button></article> }
+      @if (cart.subtotal() | orderTotal:0.08; as totals) { <aside class="summary"><span>Subtotal <strong>{{ totals.subtotal.toFixed(2) }}</strong></span><span>Tax (8%) <strong>{{ totals.tax.toFixed(2) }}</strong></span><span>Total <strong>${{ totals.total.toFixed(2) }}</strong></span></aside> }
+      <button class="primary" type="button" (click)="goToDelivery()">Continue to delivery</button>
+    </div>
+  } @else if (step() === 2) {
+    <div class="panel"><h2>Delivery details</h2>@if (deliveryConfig().length) { <app-dynamic-form [formGroup]="deliveryForm" [config]="deliveryConfig()" /> } @else { <div class="form-skeleton">Preparing delivery form…</div> }<div class="actions"><a routerLink="/shop/checkout/step/1">Back</a><button class="primary" type="button" (click)="goToPayment()">Continue to payment</button></div></div>
+  } @else {
+    <div class="panel"><h2>Payment</h2><form [formGroup]="paymentForm" (ngSubmit)="submit()"><app-card-number-control formControlName="cardNumber" /><label>Expiry date<input type="month" formControlName="expiry" /></label><label class="checkbox"><input type="checkbox" formControlName="sameAsDelivery" /> Billing address is the same as delivery</label><app-dynamic-form [formGroup]="paymentForm" [config]="billingConfig" />@if (submitError(); as error) { <p class="error" role="alert">{{ error }}</p> }@if (submitting()) { <div class="success">Submitting your order securely…</div> }<div class="actions"><a routerLink="/shop/checkout/step/2">Back</a><button class="primary" type="submit" [disabled]="submitting()">Place order</button></div></form></div>
+  }
+</section>
