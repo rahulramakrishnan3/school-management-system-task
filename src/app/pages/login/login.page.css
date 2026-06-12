@@ -54,6 +54,70 @@ h1 {
   color: #64748b;
 }
 
+.demo-credentials {
+  margin-bottom: 1.25rem;
+  padding: 0.85rem;
+  border: 1px solid #c7d2fe;
+  border-radius: 0.85rem;
+  background: #eef2ff;
+}
+
+.demo-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.65rem;
+  color: #3730a3;
+}
+
+.demo-heading span {
+  color: #6366f1;
+  font-size: 0.7rem;
+}
+
+.credential-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.credential-card {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0.65rem;
+  border: 1px solid #c7d2fe;
+  border-radius: 0.65rem;
+  background: white;
+  color: #475569;
+  font-size: 0.68rem;
+  font-weight: 500;
+  text-align: left;
+}
+
+.credential-card:hover {
+  border-color: #6366f1;
+  background: #f8fafc;
+}
+
+.credential-name {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.35rem;
+  color: #1e1b4b;
+}
+
+.credential-name small {
+  padding: 0.15rem 0.35rem;
+  border-radius: 99px;
+  background: #e0e7ff;
+  color: #4338ca;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+}
+
 form {
   display: grid;
   gap: 0.6rem;
@@ -139,5 +203,15 @@ button {
 @keyframes shimmer {
   to {
     background-position: -200% 0;
+  }
+}
+
+@media (max-width: 430px) {
+  .login-card {
+    padding: 1.5rem;
+  }
+
+  .credential-list {
+    grid-template-columns: 1fr;
   }
 }

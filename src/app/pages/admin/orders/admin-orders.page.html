@@ -1,0 +1,39 @@
+<section class="feature-card">
+  <div class="title-row"><div><p class="eyebrow">Fulfillment</p><h2>Orders</h2></div><strong>{{ store.filteredOrders().length }} orders</strong></div>
+  <div class="status-filters" aria-label="Order status filter">
+    @for (status of statuses; track status) { <button type="button" [class.active]="store.status() === status" (click)="filterStatus(status)">{{ status }}</button> }
+  </div>
+  <div class="date-filters">
+    <label>From <input type="date" [formControl]="startDate" (change)="filterDates()" /></label>
+    <label>To <input type="date" [formControl]="endDate" (change)="filterDates()" /></label>
+  </div>
+  <div class="table-wrap"><table>
+    <thead><tr>
+      <th><button type="button" (click)="sort('id')">Order ID</button></th><th><button type="button" (click)="sort('customer')">Customer</button></th>
+      <th>Products</th><th><button type="button" (click)="sort('total')">Total</button></th><th><button type="button" (click)="sort('status')">Status</button></th><th><button type="button" (click)="sort('date')">Date</button></th>
+    </tr></thead>
+    <tbody>
+      @for (order of visibleOrders(); track order.id) {
+        <tr tabindex="0" (click)="select(order)" (keydown.enter)="select(order)">
+          <td><strong>{{ order.id }}</strong></td><td>{{ order.customer }}</td><td>{{ order.lines.length }} item types</td>
+          <td>{{ store.total(order).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) }}</td><td><span class="badge" [class]="order.status.toLowerCase()">{{ order.status }}</span></td><td>{{ order.date }}</td>
+        </tr>
+      } @empty { <tr><td colspan="6">No orders match this range.</td></tr> }
+    </tbody>
+  </table></div>
+  <footer><span>Page {{ page() }} of {{ pageCount() }}</span><div><button type="button" [disabled]="page() === 1" (click)="page.set(page() - 1)">Previous</button><button type="button" [disabled]="page() === pageCount()" (click)="page.set(page() + 1)">Next</button></div></footer>
+</section>
+
+@if (selectedOrder(); as order) {
+  <div class="backdrop" (click)="close()"></div>
+  <aside class="drawer">
+    <div class="title-row"><div><p class="eyebrow">Order profile</p><h2>{{ order.id }}</h2></div><button type="button" (click)="close()">Close</button></div>
+    <dl><div><dt>Customer</dt><dd>{{ order.customer }}</dd></div><div><dt>Date</dt><dd>{{ order.date }}</dd></div></dl>
+    <label>Status <select [value]="order.status" (change)="updateStatus($any($event.target).value)">@for (status of statuses.slice(1); track status) { <option [value]="status">{{ status }}</option> }</select></label>
+    <h3>Line items</h3>
+    @for (line of order.lines; track line.product) {
+      <article class="line-item"><div><strong>{{ line.product }}</strong><span>{{ line.quantity }} × {{ line.unitPrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) }}</span></div><strong>{{ (line.quantity * line.unitPrice).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) }}</strong></article>
+    }
+    <div class="total"><span>Total</span><strong>{{ store.total(order).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) }}</strong></div>
+  </aside>
+}
