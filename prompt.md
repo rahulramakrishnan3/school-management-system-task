@@ -61,3 +61,44 @@ You must maintain a step-by-step progress ledger inside a `README.md` file at th
 - Create a shell/navigation component that reads the global signals from `AuthService`.
 - Dynamically toggle layout elements, navigation links, and administrative actions using conditional template syntax reading directly from the signals.
 - Write this step to `README.md`.
+
+### Step 6: Admin Routing & Shell Architecture
+
+- Set up a lazy-loaded `/admin` route that acts as a secure container for the admin panel features.
+- Protect this container route with the `adminGuard` established in Task 1.
+- Create sub-routes for `Products`, `Orders`, and `Analytics`, configuring each as a distinct lazy-loaded module or routing definition under `/admin`.
+- Write this step to `README.md`.
+
+### Step 7: Product Management Store & List View (2A)
+
+- Build a dedicated, signal-based store or stateful service for products to ensure data does not scatter across components.
+- Implement a paginated product list rendered as a data table with sortable columns for: `name`, `category`, `price`, and `stock`.
+- Build a search input combined with a category dropdown filter. Chain these inputs using RxJS (`debounceTime` + `distinctUntilChanged` + `switchMap`) to compose a single query parameters object—preventing full layout re-renders on every single keystroke.
+- Write this step to `README.md`.
+
+### Step 8: Product CRUD Actions & Optimistic UI (2A)
+
+- Build an Add/Edit reactive product form modal or slide-over layout.
+- Implement an Optimistic UI strategy for the "Delete Product" feature: when delete is clicked, immediately remove the row from the local view, hit the mock API endpoint, and seamlessly roll back the state while throwing a dynamic error toast if the backend call fails.
+- Write this step to `README.md`.
+
+### Step 9: Reactive WebSocket Stock Stream (2A)
+
+- Simulate a live server WebSocket connection using an interval stream coupled to an RxJS `Subject`.
+- This background stream must randomly update stock counts for currently visible items in the table.
+- Ensure the structural stock badges update fluidly using reactive bindings _without_ re-triggering a complete collection re-fetch.
+- Write this step to `README.md`.
+
+### Step 10: Orders Table & Dynamic Filters (2B)
+
+- Set up a shared, stateful store for managing orders (shared globally with the upcoming Task 3).
+- Display orders in a paginated, sortable table tracking: `order ID`, `customer name`, `product(s)`, `total value`, `status`, and `date`.
+- Implement functional multi-filters for order status (`All`, `Pending`, `Confirmed`, `Cancelled`) and a custom date-range range picker.
+- Write this step to `README.md`.
+
+### Step 11: Order Detail Side-Panel & Inline Status Updates (2B)
+
+- Implement a slide-out drawer or overlay side-panel to view specific order profiles upon clicking any row in the table (must not trigger a new route).
+- Render a comprehensive line-item component breakdown within this panel.
+- Embed an inline select dropdown menu to change order statuses. Modifying this status must instantly sync the parent table via the shared state layer without inducing a clumsy whole-page reload.
+- Write this step to `README.md`.

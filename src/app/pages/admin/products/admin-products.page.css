@@ -1,0 +1,13 @@
+.feature-card { padding: 1.25rem; border: 1px solid #e2e8f0; border-radius: 1rem; background: white; }
+.title-row, footer, .filters, .actions { display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
+h2 { margin: .2rem 0; color: #0f172a; }
+button, input, select { padding: .6rem .75rem; border: 1px solid #cbd5e1; border-radius: .55rem; background: white; font: inherit; }
+button { cursor: pointer; font-weight: 700; } button:disabled { opacity: .45; cursor: default; }
+.primary { border-color: #4338ca; background: #4338ca; color: white; }
+.filters { justify-content: flex-start; margin: 1.25rem 0; } label { display: grid; gap: .35rem; color: #475569; font-size: .8rem; font-weight: 700; }
+.table-wrap { overflow-x: auto; } table { width: 100%; border-collapse: collapse; } th, td { padding: .8rem; border-bottom: 1px solid #e2e8f0; text-align: left; white-space: nowrap; } th button { padding: 0; border: 0; color: #475569; }
+.badge { display: inline-block; min-width: 2.2rem; padding: .25rem .5rem; border-radius: 99px; background: #dcfce7; color: #166534; text-align: center; font-weight: 800; transition: background .2s; }.badge.low { background: #fee2e2; color: #991b1b; }
+footer { margin-top: 1rem; color: #64748b; } footer div { display: flex; gap: .5rem; }
+.toast { display: flex; justify-content: space-between; gap: 1rem; margin: .75rem 0; padding: .75rem; border-radius: .7rem; background: #fef2f2; color: #991b1b; }
+.backdrop { position: fixed; inset: 0; z-index: 4; background: rgb(15 23 42 / 45%); }.drawer { position: fixed; inset: 0 0 0 auto; z-index: 5; width: min(28rem, 92vw); padding: 1.5rem; background: white; box-shadow: -1rem 0 3rem rgb(15 23 42 / 18%); }
+.drawer form { display: grid; gap: 1rem; margin-top: 1.5rem; }.form-error { color: #b91c1c; }

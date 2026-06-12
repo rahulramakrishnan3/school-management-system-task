@@ -1,13 +1,14 @@
-<section class="page-card">
-  <p class="eyebrow">Administration</p>
-  <h1>Product overview</h1>
-  <p>Manage inventory, suppliers, categories, and product settings.</p>
-
-  <div class="stat-grid">
-    <article><strong>428</strong><span>Products</span></article>
-    <article><strong>36</strong><span>Suppliers</span></article>
-    <article><strong>18</strong><span>Categories</span></article>
-  </div>
-
-  <button type="button">Add new product</button>
+<section class="admin-shell">
+  <header>
+    <div>
+      <p class="eyebrow">Administration</p>
+      <h1>Admin panel</h1>
+    </div>
+    <nav aria-label="Admin features">
+      <a routerLink="products" routerLinkActive="active">Products</a>
+      <a routerLink="orders" routerLinkActive="active">Orders</a>
+      <a routerLink="analytics" routerLinkActive="active">Analytics</a>
+    </nav>
+  </header>
+  <router-outlet />
 </section>

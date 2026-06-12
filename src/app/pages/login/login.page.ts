@@ -5,6 +5,13 @@ import { finalize } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from '../../auth/auth.service';
 
+interface DemoCredential {
+  readonly name: string;
+  readonly role: 'Admin' | 'User';
+  readonly email: string;
+  readonly password: string;
+}
+
 @Component({
   selector: 'app-login-page',
   imports: [ReactiveFormsModule],
@@ -21,11 +28,25 @@ export class LoginPage {
   // OnPush pairs with signal form states so only explicit loading/error changes trigger checks.
   readonly isLoading = signal(false);
   readonly errorMessage = signal<string | null>(null);
+  readonly demoCredentials: readonly DemoCredential[] = [
+    { name: 'Aarav Sharma', role: 'Admin', email: 'aarav.admin@product.test', password: 'Admin@123' },
+    { name: 'Meera Patel', role: 'Admin', email: 'meera.admin@product.test', password: 'Admin@456' },
+    { name: 'Kabir Singh', role: 'User', email: 'kabir.user@product.test', password: 'User@123' },
+    { name: 'Ananya Rao', role: 'User', email: 'ananya.user@product.test', password: 'User@456' },
+  ];
 
   readonly loginForm = this.formBuilder.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(8)]],
   });
+
+  useCredentials(credentials: DemoCredential): void {
+    this.loginForm.setValue({
+      email: credentials.email,
+      password: credentials.password,
+    });
+    this.errorMessage.set(null);
+  }
 
   submit(): void {
     if (this.loginForm.invalid) {

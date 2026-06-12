@@ -15,7 +15,7 @@ export const routes: Routes = [
       {
         path: 'admin',
         canActivate: [adminGuard],
-        loadComponent: () => import('./pages/admin/admin.page').then((module) => module.AdminPage),
+        loadChildren: () => import('./pages/admin/admin.routes').then((module) => module.ADMIN_ROUTES),
       },
       {
         path: 'products',

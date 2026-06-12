@@ -5,6 +5,25 @@
     <h1 id="login-title">Welcome back</h1>
     <p class="intro">Sign in to continue to your role-specific workspace.</p>
 
+    <section class="demo-credentials" aria-labelledby="demo-credentials-title">
+      <div class="demo-heading">
+        <strong id="demo-credentials-title">Demo accounts</strong>
+        <span>Click an account to fill the form</span>
+      </div>
+      <div class="credential-list">
+        @for (credential of demoCredentials; track credential.email) {
+          <button class="credential-card" type="button" (click)="useCredentials(credential)">
+            <span class="credential-name">
+              <strong>{{ credential.name }}</strong>
+              <small>{{ credential.role }}</small>
+            </span>
+            <span>{{ credential.email }}</span>
+            <span>Password: <strong>{{ credential.password }}</strong></span>
+          </button>
+        }
+      </div>
+    </section>
+
     @if (errorMessage(); as message) {
       <div class="error-alert" role="alert">
         <strong>Unable to sign in</strong>

@@ -1,0 +1,57 @@
+<section class="feature-card">
+  <div class="title-row">
+    <div><p class="eyebrow">Inventory</p><h2>Products</h2></div>
+    <button class="primary" type="button" (click)="openForm()">Add product</button>
+  </div>
+
+  @if (store.error(); as error) {
+    <aside class="toast" role="alert">{{ error }} <button type="button" (click)="store.dismissError()">Dismiss</button></aside>
+  }
+
+  <div class="filters">
+    <label>Search <input type="search" [formControl]="search" placeholder="Search products" /></label>
+    <label>Category
+      <select [formControl]="category">
+        @for (item of store.categories(); track item) { <option [value]="item">{{ item }}</option> }
+      </select>
+    </label>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th><button type="button" (click)="sort('name')">Name</button></th>
+        <th><button type="button" (click)="sort('category')">Category</button></th>
+        <th><button type="button" (click)="sort('price')">Price</button></th>
+        <th><button type="button" (click)="sort('stock')">Stock</button></th>
+        <th>Actions</th>
+      </tr></thead>
+      <tbody>
+        @for (product of visibleProducts(); track product.id) {
+          <tr>
+            <td><strong>{{ product.name }}</strong></td><td>{{ product.category }}</td>
+            <td>{{ product.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) }}</td>
+            <td><span class="badge" [class.low]="product.stock < 6">{{ product.stock }}</span></td>
+            <td class="actions"><button type="button" (click)="openForm(product)">Edit</button><button type="button" (click)="store.deleteOptimistically(product.id)">Delete</button></td>
+          </tr>
+        } @empty { <tr><td colspan="5">No products match these filters.</td></tr> }
+      </tbody>
+    </table>
+  </div>
+  <footer><span>Page {{ page() }} of {{ pageCount() }}</span><div><button type="button" [disabled]="page() === 1" (click)="page.set(page() - 1)">Previous</button><button type="button" [disabled]="page() === pageCount()" (click)="nextPage()">Next</button></div></footer>
+</section>
+
+@if (editing() !== undefined) {
+  <div class="backdrop" (click)="closeForm()"></div>
+  <aside class="drawer">
+    <div class="title-row"><h2>{{ editing() ? 'Edit' : 'Add' }} product</h2><button type="button" (click)="closeForm()">Close</button></div>
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <label>Name <input formControlName="name" /></label>
+      <label>Category <input formControlName="category" /></label>
+      <label>Price <input type="number" formControlName="price" /></label>
+      <label>Stock <input type="number" formControlName="stock" /></label>
+      @if (form.invalid && form.touched) { <p class="form-error">Complete all fields with valid positive values.</p> }
+      <button class="primary" type="submit">Save product</button>
+    </form>
+  </aside>
+}

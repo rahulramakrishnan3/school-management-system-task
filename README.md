@@ -69,6 +69,69 @@ delegate entirely to AuthService, preserving it as the single source of truth.
 
 Implemented in `src/app/layout/` with protected child routes.
 
+### Step 6: Admin Routing & Shell Architecture
+
+**Status:** Complete
+
+Create a lazy-loaded admin routing definition protected at the container boundary
+by `adminGuard`. A dedicated standalone admin shell will host lazy Products,
+Orders, and Analytics child pages and provide feature-level navigation.
+
+Implemented in `src/app/pages/admin/admin.routes.ts` and the standalone admin
+feature pages.
+
+### Step 7: Product Management Store & List View (2A)
+
+**Status:** Complete
+
+Create a root-provided signal store as the single owner of product data and query
+state. The admin product page will compose debounced search and category form
+controls through `distinctUntilChanged` and `switchMap`, then render a sortable,
+paginated signal-backed table.
+
+Implemented in `src/app/pages/admin/products/`.
+
+### Step 8: Product CRUD Actions & Optimistic UI (2A)
+
+**Status:** Complete
+
+Add a reactive add/edit slide-over form. Deletes will remove products
+optimistically, simulate a mock API request, and restore the removed record with
+a signal-backed error toast if that request fails.
+
+Implemented with the product slide-over form and `ProductStore`.
+
+### Step 9: Reactive WebSocket Stock Stream (2A)
+
+**Status:** Complete
+
+Create an interval-driven `Subject` stock stream inside the product store. It
+will patch stock values only for product IDs currently visible in the paginated
+table, allowing stock badge bindings to update without re-running a collection
+fetch.
+
+Implemented by the scoped stock event stream in `ProductStore`.
+
+### Step 10: Orders Table & Dynamic Filters (2B)
+
+**Status:** Complete
+
+Create a globally shared signal store for orders and an admin orders page with a
+sortable, paginated table. Signal-backed status and date-range controls will
+filter the shared order collection.
+
+Implemented in `src/app/pages/admin/orders/`.
+
+### Step 11: Order Detail Side-Panel & Inline Status Updates (2B)
+
+**Status:** Complete
+
+Add an in-page order detail drawer containing line-item details and an inline
+status selector. Status changes will update the shared order store immediately,
+which will keep the parent table synchronized without navigation or reload.
+
+Implemented by the orders detail drawer and globally provided `OrderStore`.
+
 ## Development server
 
 To start a local development server, run:
